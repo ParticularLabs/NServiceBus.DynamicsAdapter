@@ -33,15 +33,10 @@ namespace CRMAdapterEndpoint
     {
         public override Task Invoke(IIncomingPhysicalMessageContext context, Func<Task> next)
         {
-            // TODO: verify if needed (Quick check to see if this is a native message.  We don't want to alter the type otherwise.)
-            if (!context.Message.Headers.ContainsKey("NServiceBus.EnclosedMessageTypes"))
-            {
                 var mappingResult = Mapper.Map(context.Message.Headers, context.Message.Body);
-               
                 context.Message.Headers[Headers.EnclosedMessageTypes] = mappingResult.TypeHeaderValue;
                 context.UpdateMessage(mappingResult.SerializedMessageBody);
-            }
-            return next();
+                return next();
         }
     }
 }
