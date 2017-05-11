@@ -6,7 +6,7 @@ The complete hybrid sample application simulates a scenario where the creation o
 
 While the solution is mostly standard NServiceBus, the projects that facilitate the integration with CRM require some prerequisite setup. 
 
-## Setting up Dynamics 365 2016 for Azure Service Bus Integration##
+## Setting up Dynamics 365 2016 for Azure Service Bus Integration
 
 The sample leverages the built in [Azure ServiceBusPlugin integration](https://msdn.microsoft.com/en-us/library/gg309677.aspx) to send a native CRM event message to Azure that is received and translated by an adapter into a compatible NServiceBus event.  
 
