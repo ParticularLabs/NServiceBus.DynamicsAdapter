@@ -151,7 +151,8 @@ The CRMApiGateway project handles command messages and invokes the REST api thro
 
 ```
 
-Update the connectionstring in the app.config for the URI and user credentials for your CRM instance. 
+Update the connectionstring in the app.config for the URI and user credentials for your CRM instance.  You will also need to [register your client application in Azure Active Directory](https://msdn.microsoft.com/en-us/library/mt622431.aspx).   The ClientID and RedirectURL must be supplied in the configuration.  
+
 
 
 
