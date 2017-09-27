@@ -19,6 +19,8 @@
 
             var endpointConfiguration = new EndpointConfiguration("Samples.ServiceBus.FraudManagementEndpoint");
             endpointConfiguration.SendFailedMessagesTo("error");
+            endpointConfiguration.AuditProcessedMessagesTo("audit");
+            endpointConfiguration.HeartbeatPlugin("particular.servicecontrol");
             endpointConfiguration.UseSerialization<JsonSerializer>();
             endpointConfiguration.EnableInstallers();
             var transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
@@ -30,7 +32,7 @@
             transport.ConnectionString(connectionString);
             transport.BrokeredMessageBodyType(SupportedBrokeredMessageBodyTypes.Stream);
             var topology = transport.UseForwardingTopology();
-            topology.NumberOfEntitiesInBundle(1);
+            //topology.NumberOfEntitiesInBundle(1);
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
             endpointConfiguration.Recoverability().DisableLegacyRetriesSatellite();
 

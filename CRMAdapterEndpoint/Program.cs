@@ -29,6 +29,11 @@ namespace CRMAdapterEndpoint
             //In dynamics the events are configured to go to CRMEvents queue.
             nativeEndpointConfiguration.OverrideLocalAddress("crmevents");
             nativeEndpointConfiguration.SendFailedMessagesTo("error");
+
+            //Configure this endpoint to send heartbeat messages to ServiceControl automaticall. 
+            nativeEndpointConfiguration.HeartbeatPlugin("particular.servicecontrol");//, TimeSpan.FromMinutes(1), TimeSpan.FromDays(1));
+
+            //Configure the Azure ServiceBus Transport
             var transport = nativeEndpointConfiguration.UseTransport<AzureServiceBusTransport>();
             var connectionString = Environment.GetEnvironmentVariable("CRM.AzureServiceBus.ConnectionString");
             if (string.IsNullOrWhiteSpace(connectionString))
@@ -38,12 +43,13 @@ namespace CRMAdapterEndpoint
             transport.ConnectionString(connectionString);
             transport.BrokeredMessageBodyType(SupportedBrokeredMessageBodyTypes.Stream);
             var topology = transport.UseForwardingTopology();
-            topology.NumberOfEntitiesInBundle(1);
+        
 
             nativeEndpointConfiguration.UsePersistence<InMemoryPersistence>();
             nativeEndpointConfiguration.UseSerialization<JsonSerializer>();
             nativeEndpointConfiguration.EnableInstallers();
 
+            //Configure this endpoint to ignore Mapper not found from retry...
             var recoverability = nativeEndpointConfiguration.Recoverability();
             recoverability.DisableLegacyRetriesSatellite();
             recoverability.AddUnrecoverableException<MapperNotFoundException>();

@@ -17,6 +17,8 @@
 
         public Task Handle(FraudReviewResult message, IMessageHandlerContext context)
         {
+            Console.WriteLine($"Fraud Result Received for {message.ContactId}");
+            
             Data.ReviewResult = message;
             return CheckForTaskUpdate(context);
         }

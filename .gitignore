@@ -250,3 +250,9 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+*.txt
+SControlTransportAdapter/Adapter.csproj.DotSettings
+SControlTransportAdapter/AdapterSpecificHeaders.cs
+SControlTransportAdapter/packages.config
+SControlTransportAdapter/Program.cs
+SControlTransportAdapter/SCTransportAdapter.csproj

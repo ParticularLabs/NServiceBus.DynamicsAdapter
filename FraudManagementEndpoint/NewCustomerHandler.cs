@@ -1,6 +1,7 @@
 ﻿namespace FraudManagementEndpoint
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using NServiceBus;
     using CustomerManagementMessages;
@@ -26,6 +27,7 @@
                 Console.WriteLine($"Successful Fraud Review of {message.FirstName} {message.LastName}.");
             }
 
+            Thread.Sleep(5000);
             //Communicate to the other services the outcome of our work... 
             await context.Publish(fraudResult);
         }
